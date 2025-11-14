@@ -1,13 +1,22 @@
-meme_dict = {
-            "CRINGE": "Sesuatu yang sangat aneh atau memalukan",
-            "LOL": "Tanggapan umum terhadap sesuatu yang lucu",
-            "CREEPY": 'Menakutkan, tidak menyenangkan',
-            "BRB": 'Singkatan dari Be Right Back, artinya "segera kembali"'
-            }
+import discord
+import random
+from discord.ext import commands
 
-for i in range(5):
-    word = input("Ketik kata yang tidak Kamu mengerti (gunakan huruf kapital semua!): ")
-    if word in meme_dict.keys():
-        print("Penjelasan:", meme_dict[word])
-    else:
-        print('Kata itu tidak ada')
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'We have logged in as {bot.user}')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Hi! I am a bot {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+bot.run("TOKEN BOT")
